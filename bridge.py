@@ -51,7 +51,11 @@ from room_matching import find_allowed_humans, parse_allowed_users, room_matches
 # Hermes-native imports (available inside the container)
 # ---------------------------------------------------------------------------
 from tools.transcription_tools import transcribe_audio
-from tools.tts_tool import text_to_speech_tool, _strip_markdown_for_tts
+from tools.tts_tool import text_to_speech_tool
+try:
+    from tools.tts_tool import _strip_markdown_for_tts  # hermes <=0.18 layout
+except ImportError:  # hermes >=0.21 moved it to the public normalize module
+    from tools.tts_text_normalize import strip_markdown_for_tts as _strip_markdown_for_tts
 
 # ---------------------------------------------------------------------------
 # Configuration

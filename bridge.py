@@ -339,7 +339,9 @@ async def hermes_tts(text: str) -> Optional[str]:
         return None
 
     import uuid
-    audio_dir = os.path.join(tempfile.gettempdir(), "hermes_voice_bridge")
+    audio_dir = os.path.join(
+        os.environ.get("HERMES_HOME", tempfile.gettempdir()), "voice-bridge-tts"
+    )
     os.makedirs(audio_dir, exist_ok=True)
     output_path = os.path.join(audio_dir, f"tts_{uuid.uuid4().hex[:12]}.mp3")
 
